@@ -26,6 +26,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login to Aliyun Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ALIYUN_REGISTRY }}
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -33,3 +40,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/siyuan-sync-aware-serve:${{ github.event.inputs.tag }}
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_NAMESPACE }}/siyuan-sync-aware-serve:${{ github.event.inputs.tag }}
