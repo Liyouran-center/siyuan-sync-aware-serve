@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # 创建非root用户
 RUN addgroup -g 1001 -S nodejs
