@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  siyuan-sync-aware-serve:
+    image: 2681485724/siyuan-sync-aware-serve
+    container_name: siyuan-sync-aware-serve
+    restart: unless-stopped
+    ports:
+      - "7777:7777"
