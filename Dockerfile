@@ -1,18 +1,19 @@
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:18-alpine
 
-FROM node:18-alpine AS runner
-WORKDIR /app
-
+# 创建非root用户
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-COPY --from=builder --chown=nextjs:nodejs /app ./
+WORKDIR /app
 
+COPY package*.json ./
+
+RUN npm i
+
+COPY . .
+
+# 更改文件所有权
+RUN chown -R nextjs:nodejs /app
 USER nextjs
 
 EXPOSE 7777
